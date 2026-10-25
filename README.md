@@ -28,3 +28,10 @@ size is an input series. Your detector will watch the paper strategy (size = 1),
 for the test_backtest.py file
 Run python -m pytest -q from the repo root. You want 3 passed. To prove the lookahead test works, temporarily change position = target.shift(1) to position = target, rerun and confirm test_no_lookahead fails, then change it back. Spend two minutes on this, because it’s the bug that makes a backtest look great and mean nothing.
 
+The detector:
+The detector watches the paper strategy’s returns on exposed days only, because flat days say nothing about the edge. It runs a one-sided CUSUM looking for the mean to fall from the research-period edge toward zero.
+The reference edge and volatility come from the research backtest res. This is what a practitioner would have, but it’s an assumption you should state: in real life the in-sample edge is overstated, so real detectors would false-alarm more often than your simulation shows.
+Position size is 100%, 50% (at h/2) or 0% (at h). The statistic keeps updating on paper returns while paused, so size recovers if the edge comes back.
+The stop-loss baseline is a 15% drawdown stop on the paper strategy’s equity, with a 126-day cooldown and a peak reset on re-entry. 15% is about 70% of your backtest’s -21.5% max drawdown, which is a defensible, non-arbitrary choice.
+
+NOTE: on the "h" test(hours 3 to 5) 
