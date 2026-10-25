@@ -1,5 +1,5 @@
 # Oxhack-F — Trading Strategy Deterioration Monitor
-
+![Oxhack-F dashboard](dashboard.png)
 **When should a trading strategy be reduced, paused, or left alone?**
 
 Oxhack-F is an interactive research prototype exploring how statistical change detection can inform risk-management decisions when a trading strategy's expected performance deteriorates.
